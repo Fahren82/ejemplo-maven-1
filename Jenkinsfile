@@ -20,6 +20,13 @@ pipeline {
                 }
             }
         }
+        stage("Paso 2.1: version"){
+            steps {
+                script {
+                sh "uname"
+                }
+            }
+        }
         stage("Paso 3: Guardar Archivo"){
             steps {
                 script {
