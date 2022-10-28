@@ -11,6 +11,17 @@ pipeline {
                 script {
                 sh "echo 'Hello, World Usach!'"
                 }
+                post {
+                    always {
+                        sh "echo 'fase always executed post'"
+                    }
+                    success {
+                        sh "echo 'fase success'"
+                    }
+                    failure {
+                        sh "echo 'fase failure'"
+                    }
+                }
             }
         }
         stage("Paso 2: Crear Archivo"){
@@ -18,12 +29,34 @@ pipeline {
                 script {
                 sh "echo 'Hello, World Usach!!' > hello-devops-usach-.txt"
                 }
+                post {
+                    always {
+                        sh "echo 'fase always executed post'"
+                    }
+                    success {
+                        sh "echo 'fase success'"
+                    }
+                    failure {
+                        sh "echo 'fase failure'"
+                    }
+                }
             }
         }
         stage("Paso 2.1: version"){
             steps {
                 script {
                 sh "uname"
+                }
+                post {
+                    always {
+                        sh "echo 'fase always executed post'"
+                    }
+                    success {
+                        sh "echo 'fase success'"
+                    }
+                    failure {
+                        sh "echo 'fase failure'"
+                    }
                 }
             }
         }
@@ -37,6 +70,9 @@ pipeline {
                 //record the test results and archive the jar file.
                 success {
                     archiveArtifacts(artifacts:'**/*.txt', followSymlinks:false)
+                }
+                failure {
+                        sh "echo 'fase failure'"
                 }
             }
         }
