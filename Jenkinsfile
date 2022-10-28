@@ -6,73 +6,30 @@ def jsonParse(def json) {
 pipeline {
     agent any
     stages {
-        stage("Paso 1: Saludar"){
+        stage("Paso 1: Compliar"){
             steps {
                 script {
-                sh "echo 'Hello, World Usach!'"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post'"
-                    }
-                    success {
-                        sh "echo 'fase success'"
-                    }
-                    failure {
-                        sh "echo 'fase failure'"
-                    }
+                sh "echo 'Compile Code!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean compile -e"
                 }
             }
         }
-        stage("Paso 2: Crear Archivo"){
+        stage("Paso 2: Testear"){
             steps {
                 script {
-                sh "echo 'Hello, World Usach!!' > hello-devops-usach-.txt"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post'"
-                    }
-                    success {
-                        sh "echo 'fase success'"
-                    }
-                    failure {
-                        sh "echo 'fase failure'"
-                    }
+                sh "echo 'Test Code!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean test -e"
                 }
             }
         }
-        stage("Paso 2.1: version"){
+        stage("Paso 3: Build .Jar"){
             steps {
                 script {
-                sh "uname"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post'"
-                    }
-                    success {
-                        sh "echo 'fase success'"
-                    }
-                    failure {
-                        sh "echo 'fase failure'"
-                    }
-                }
-            }
-        }
-        stage("Paso 3: Guardar Archivo"){
-            steps {
-                script {
-                sh "echo 'Persisitir Archivo!'"
-                }
-            }
-            post {
-                //record the test results and archive the jar file.
-                success {
-                    archiveArtifacts(artifacts:'**/*.txt', followSymlinks:false)
-                }
-                failure {
-                        sh "echo 'fase failure'"
+                sh "echo 'Build .Jar!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean package -e"
                 }
             }
         }
