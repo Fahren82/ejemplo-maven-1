@@ -11,7 +11,8 @@ pipeline {
                 script {
                 sh "echo 'Compile Code!'"
                 // Run Maven on a Unix agent.
-                sh "./mvnw clean compile -e"
+                //sh "./mvnw clean compile -e"
+                sh "echo mentira no Compile build porque lo comenté :P"
                 }
             }
         }
@@ -20,7 +21,8 @@ pipeline {
                 script {
                 sh "echo 'Test Code!'"
                 // Run Maven on a Unix agent.
-                sh "./mvnw clean test -e"
+                //sh "./mvnw clean test -e"
+                sh "echo mentira no hace Test porque lo comenté :P"
                 }
             }
         }
@@ -29,7 +31,8 @@ pipeline {
                 script {
                 sh "echo 'Build .Jar!'"
                 // Run Maven on a Unix agent.
-                sh "./mvnw clean package -e"
+                //sh "./mvnw clean package -e"
+                sh "echo mentira no hace build porque lo comenté :P"
                 }
             }
         }
