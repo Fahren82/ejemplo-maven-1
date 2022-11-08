@@ -1,22 +1,22 @@
 # Getting Started
 
-## Windows
+//## Windows
 
-### Compile Code
-* ./mvnw.cmd clean compile -e
+//### Compile Code
+//* ./mvnw.cmd clean compile -e
 
-### Test Code
-* ./mvnw.cmd clean test -e
+//### Test Code
+//* ./mvnw.cmd clean test -e
 
-### Jar Code
-* ./mvnw.cmd clean package -e
+//### Jar Code
+//* ./mvnw.cmd clean package -e
 
-### Run Jar
-* Local:      ./mvnw.cmd spring-boot:run 
-* Background: nohup bash mvnw.cmd spring-boot:run &
+//### Run Jar
+//* Local:      ./mvnw.cmd spring-boot:run 
+//* Background: nohup bash mvnw.cmd spring-boot:run &
 
-### Testing Application
-* Abrir navegador: http://localhost:8081/rest/mscovid/test?msg=testing
+//### Testing Application
+//* Abrir navegador: http://localhost:8081/rest/mscovid/test?msg=testing
 
 ## Linux
 
