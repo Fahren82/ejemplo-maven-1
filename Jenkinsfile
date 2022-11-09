@@ -9,17 +9,17 @@ pipeline {
         stage("Paso 1: Saludar"){
             steps {
                 script {
-                sh "echo 'Hello, World Usach!'"
+                sh "echo 'Hello, mundo Usach!'"
                 }
                 post {
                     always {
                         sh "echo 'fase always executed post'"
                     }
                     success {
-                        sh "echo 'fase success'"
+                        sh "echo 'fase de success'"
                     }
                     failure {
-                        sh "echo 'fase failure'"
+                        sh "echo 'fase de failure'"
                     }
                 }
             }
@@ -34,10 +34,10 @@ pipeline {
                         sh "echo 'fase always executed post'"
                     }
                     success {
-                        sh "echo 'fase success'"
+                        sh "echo 'fase success paso 2'"
                     }
                     failure {
-                        sh "echo 'fase failure'"
+                        sh "echo 'fase failure paso 2'"
                     }
                 }
             }
@@ -45,6 +45,7 @@ pipeline {
         stage("Paso 2.1: version"){
             steps {
                 script {
+                sh "echo 'Versión del S.O:'"
                 sh "uname"
                 }
                 post {
@@ -52,10 +53,10 @@ pipeline {
                         sh "echo 'fase always executed post'"
                     }
                     success {
-                        sh "echo 'fase success'"
+                        sh "echo 'fase success paso 2.1'"
                     }
                     failure {
-                        sh "echo 'fase failure'"
+                        sh "echo 'fase failure paso 2.1'"
                     }
                 }
             }
