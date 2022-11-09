@@ -27,7 +27,8 @@ pipeline {
         stage("Paso 2: Crear Archivo"){
             steps {
                 script {
-                sh "echo 'Hello, World Usach!!' > hello-devops-usach-.txt"
+                //sh "echo 'Hello, World Usach!!' > hello-devops-usach-.txt"
+                sh "echo 'prueba de echo'"
                 }
                 post {
                     always {
@@ -50,7 +51,7 @@ pipeline {
                 }
                 post {
                     always {
-                        sh "echo 'fase always executed post'"
+                        sh "echo 'fase always executed post paso 2.1'"
                     }
                     success {
                         sh "echo 'fase success paso 2.1'"
@@ -70,7 +71,8 @@ pipeline {
             post {
                 //record the test results and archive the jar file.
                 success {
-                    archiveArtifacts(artifacts:'**/*.txt', followSymlinks:false)
+                   // archiveArtifacts(artifacts:'**/*.txt', followSymlinks:false)
+                   sh "echo 'paso 3'"
                 }
                 failure {
                         sh "echo 'fase failure'"
