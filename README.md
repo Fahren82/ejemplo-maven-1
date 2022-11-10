@@ -1,5 +1,5 @@
 # Getting Started
-
+esto es del release V1.0
 ## Windows
 
 ### Compile Code
