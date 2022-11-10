@@ -1,5 +1,5 @@
 # Getting Started
-
+esto es del release alpha
 ## Windows
 
 ### Compile Code
