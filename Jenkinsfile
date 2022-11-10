@@ -1,81 +1,34 @@
 import groovy.json.JsonSlurperClassic
-
 def jsonParse(def json) {
     new groovy.json.JsonSlurperClassic().parseText(json)
 }
 pipeline {
     agent any
     stages {
-        stage("Paso 1: Saludar"){
+        stage("Paso 1: Compliar"){
             steps {
                 script {
-                sh "echo 'Hello, mundo Usach!'"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post'"
-                    }
-                    success {
-                        sh "echo 'fase de success'"
-                    }
-                    failure {
-                        sh "echo 'fase de failure'"
-                    }
+                sh "echo 'Compile Code!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean compile -e"
                 }
             }
         }
-        stage("Paso 2: Crear Archivo"){
+        stage("Paso 2: Testear"){
             steps {
                 script {
-                //sh "echo 'Hello, World Usach!!' > hello-devops-usach-.txt"
-                sh "echo 'prueba de echo'"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post'"
-                    }
-                    success {
-                        sh "echo 'fase success paso 2'"
-                    }
-                    failure {
-                        sh "echo 'fase failure paso 2'"
-                    }
+                sh "echo 'Test Code!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean test -e"
                 }
             }
         }
-        stage("Paso 2.1: version"){
+        stage("Paso 3: Build .Jar"){
             steps {
                 script {
-                sh "echo 'Versión del S.O:'"
-                sh "uname"
-                }
-                post {
-                    always {
-                        sh "echo 'fase always executed post paso 2.1'"
-                    }
-                    success {
-                        sh "echo 'fase success paso 2.1'"
-                    }
-                    failure {
-                        sh "echo 'fase failure paso 2.1'"
-                    }
-                }
-            }
-        }
-        stage("Paso 3: Guardar Archivo"){
-            steps {
-                script {
-                sh "echo 'Persisitir Archivo!'"
-                }
-            }
-            post {
-                //record the test results and archive the jar file.
-                success {
-                   // archiveArtifacts(artifacts:'**/*.txt', followSymlinks:false)
-                   sh "echo 'paso 3'"
-                }
-                failure {
-                        sh "echo 'fase failure'"
+                sh "echo 'Build .Jar!'"
+                // Run Maven on a Unix agent.
+                sh "./mvnw clean package -e"
                 }
             }
         }
