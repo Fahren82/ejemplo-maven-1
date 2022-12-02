@@ -54,7 +54,7 @@ pipeline {
                 }
             }
         }
-           stage("Paso 5: Subir Artefacto a Nexus"){
+           /*stage("Paso 5: Subir Artefacto a Nexus"){
             steps {
                 script{
                     nexusPublisher nexusInstanceId: 'nexus',
@@ -78,7 +78,7 @@ pipeline {
                 }
             }
         }
-        /*stage("Paso 6: Descargar Nexus"){
+        stage("Paso 6: Descargar Nexus"){
             steps {
                 script{ //debería haber un token para el curl, no con password, esto funciona porque habilitamos el acceso anonimo a nexus
                     sh ' curl -X GET -u admin:$NEXUS_PASSWORD "http://nexus:8081/repository/maven-usach-ceres/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
