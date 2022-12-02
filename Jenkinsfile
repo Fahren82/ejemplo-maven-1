@@ -40,7 +40,7 @@ pipeline {
                     sh "echo 'Espera y lanza cRUL:'"
                     sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
                     sh "echo 'Llama al collection via Newman:'"
-                    sh "newman run ejemplo-maven.postman_collection1.json"
+                    sh "newman run ejemplo-maven.postman_collection.json"
                 }
             }
         }
