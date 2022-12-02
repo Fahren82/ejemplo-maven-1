@@ -5,17 +5,16 @@ def jsonParse(def json) {
 }
 pipeline {
     agent any
-    environment {
+    /*environment {
         channel='D044YFG2N5U' //el id de mi canal personal de slack
         NEXUS_PASSWORD     = credentials('llamado-nexus') //busca en la seccion credentials de jenkins user credential el que coincide con el nombre y guarda la pwd en la variable global
-    }
+    }*/
     stages {
-        
         stage("Paso 1: Build && Test"){
             steps {
                 script{
                     sh "echo 'Build && Test!'"
-                    sh "./mvnw clean package -e"    
+                    sh "./mvnw clean package -e"
                 }
             }
         }
@@ -23,13 +22,12 @@ pipeline {
         stage("Paso 2: Sonar - Análisis Estático"){
             steps {
                 script{
-                    sh "echo 'Análisis Estático!'"
+                    sh "echo 'Análisis Estático en Sonar!'"
                         withSonarQubeEnv('sonarqube') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
                             sh './mvnw clean verify sonar:sonar -Dsonar.projectKey=ejemplo-maven-full-stages -Dsonar.projectName=ejemplo-maven-full-stages -Dsonar.java.binaries=build'
                         }
-                        
                 }
             }
         }
@@ -37,8 +35,11 @@ pipeline {
         stage("Paso 3: Curl Springboot maven sleep 20"){
             steps {
                 script{
+                    sh "echo 'Levanta Spring again:'"
                     sh "nohup bash ./mvnw spring-boot:run  & >/dev/null"
+                    sh "echo 'Espera 20 segs y lanza cRUL:'"
                     sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+                    sh "echo 'Despues del cURL llama al collection via Newman:'"
                     sh "newman run ejemplo-maven.postman_collection.json"
                 }
             }
