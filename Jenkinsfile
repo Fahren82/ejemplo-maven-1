@@ -37,9 +37,9 @@ pipeline {
                 script{
                     sh "echo 'Levanta Spring again:'"
                     sh "nohup bash ./mvnw spring-boot:run  & >/dev/null"
-                    sh "echo 'Espera 20 segs y lanza cRUL:'"
+                    sh "echo 'Espera y lanza cRUL:'"
                     sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
-                    sh "echo 'Despues del cURL llama al collection via Newman:'"
+                    sh "echo 'Llama al collection via Newman:'"
                     sh "newman run ejemplo-maven.postman_collection.json"
                 }
             }
