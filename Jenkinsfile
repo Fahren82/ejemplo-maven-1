@@ -7,7 +7,7 @@ pipeline {
     agent any
     environment {
         channel='D044YFG2N5U' //el id de mi canal personal de slack
-        NEXUS_PASSWORD     = credentials('nexus-user') //busca en la seccion credentials de jenkins user credential el que coincide con el nombre y guarda la pwd en la variable global
+        NEXUS_PASSWORD     = credentials('llamado-nexus') //busca en la seccion credentials de jenkins user credential el que coincide con el nombre y guarda la pwd en la variable global
     }
     stages {
         
@@ -17,9 +17,9 @@ pipeline {
                     checkout(
                             [$class: 'GitSCM',
                             //Acá reemplazar por el nonbre de branch
-                            branches: [[name: "feature/sonar" ]],
+                            branches: [[name: "feature-sonar" ]],
                             //Acá reemplazar por su propio repositorio
-                            userRemoteConfigs: [[url: 'https://github.com/diplodevops/ejemplo-maven-ceres.git']]])
+                            userRemoteConfigs: [[url: 'https://github.com/Fahren82/ejemplo-maven-1.git']]])
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
                         withSonarQubeEnv('sonarqube') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
-                            sh './mvnw clean verify sonar:sonar -Dsonar.projectKey=ejemplo-maven-full-stages -Dsonar.projectName=cejemplo-maven-full-stages -Dsonar.java.binaries=build'
+                            sh './mvnw clean verify sonar:sonar -Dsonar.projectKey=ejemplo-maven-full-stages -Dsonar.projectName=ejemplo-maven-full-stages -Dsonar.java.binaries=build'
                         }
                         
                 }
@@ -52,13 +52,14 @@ pipeline {
                 script{
                     sh "nohup bash ./mvnw spring-boot:run  & >/dev/null"
                     sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+                    sh "newman run newman run /home/ejemplo-maven.postman_collection.json"
                 }
             }
         }
         stage("Paso 4: Detener Spring Boot"){
             steps {
-                script{
-                    sh '''
+                script{ //pidof lista los procesos java ejecutandose y awk indica cual es el nro del proceso el kill -9 mata el proceso java
+                    sh ''' 
                         echo 'Process Spring Boot Java: ' $(pidof java | awk '{print $1}')  
                         sleep 20
                         kill -9 $(pidof java | awk '{print $1}')
@@ -118,6 +119,7 @@ pipeline {
                     sleep 20
                     kill -9 $(pidof java | awk '{print $1}')
                 '''
+                sh "echo 'Proceso killeado :)'"
             }
         }
     }
